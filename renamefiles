@@ -1,0 +1,33 @@
+import os
+
+def rename_videos(directory, base_name, start_index=1):
+    # List all files in the directory
+    files = os.listdir(directory)
+    # Filter out only video files
+    video_files = [f for f in files if f.endswith('.mp4') or f.endswith('.avi') or f.endswith('.mov')]
+
+    # Iterate through each video file and rename
+    for index, video_file in enumerate(video_files, start=start_index):
+        # Generate unique identifier for each file
+        code = f"{index:03}"
+        new_name = f"{base_name} DM the code {code}"
+        _, extension = os.path.splitext(video_file)
+        new_file_name = new_name + extension
+
+        # Construct full paths
+        old_path = os.path.join(directory, video_file)
+        new_path = os.path.join(directory, new_file_name)
+
+        # Rename file
+        os.rename(old_path, new_path)
+        print(f"Renamed {video_file} to {new_file_name}")
+
+# Directory containing the video files
+directory = r"C:\Users\ifrancis\Desktop\new2\pictures\new"
+# Base name for the new file names
+base_name = "if you want this"
+# Start index for unique identifiers
+start_index = 1
+
+# Call the function to rename the videos
+rename_videos(directory, base_name, start_index)
